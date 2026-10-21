@@ -97,9 +97,9 @@
             <p>Collectible, handcrafted statement wall art — created in India for modern spaces around the world.</p>
             <div class="socials">
               <a href="${C.social.instagram}" target="_blank" rel="noopener" aria-label="Instagram">${I.ig}</a>
-              <a href="${C.social.pinterest}" target="_blank" rel="noopener" aria-label="Pinterest">${I.pin}</a>
-              <a href="${C.social.facebook}" target="_blank" rel="noopener" aria-label="Facebook">${I.fb}</a>
+              <a href="mailto:${C.email}" aria-label="Email">${I.mail}</a>
               <a href="https://wa.me/${C.whatsapp}" target="_blank" rel="noopener" aria-label="WhatsApp">${I.wa.replace('<svg', '<svg style="fill:#f6f1ea;stroke:none"')}</a>
+              <a href="${C.social.pinterest}" target="_blank" rel="noopener" aria-label="Pinterest">${I.pin}</a>
             </div>
           </div>
           <div>
@@ -115,11 +115,8 @@
             </div>
           </div>
         </div>
-        <div class="footer-word" aria-hidden="true">BUNT ELEGANCE</div>
         <div class="footer-bottom">
-          <span>© ${new Date().getFullYear()} BUNT ELEGANCE. All rights reserved.</span>
-          <span>ART THAT DEFINES YOUR SPACE</span>
-        </div>
+          <span>© ${new Date().getFullYear()} BUNT ELEGANCE. All rights reserved.</span>        </div>
       </div>`;
   }
 

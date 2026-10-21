@@ -15,8 +15,7 @@ BE.config = {
   locale: 'en-IN',
   social: {
     instagram: 'https://www.instagram.com/buntelegance',
-    pinterest: 'https://www.pinterest.com/buntelegance',
-    facebook: 'https://www.facebook.com/buntelegance',
+    pinterest: 'https://pin.it/69ib4QuIH',
   },
   // Optional: paste a Formspree / Getform / Basin endpoint to receive forms directly.
   // Left empty, forms fall back to opening the visitor's email app, pre-filled.
