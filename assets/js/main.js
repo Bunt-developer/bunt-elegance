@@ -47,10 +47,16 @@
   cart = cart.filter(i => BE.findArtwork(i.id));
   wish = wish.filter(id => BE.findArtwork(id));
 
+  const inCat = (a, id) => (a.categories || [a.category]).includes(id);
+
   /* ---------- Image helper ---------- */
+  // Catalogue images are either an extension-less base (…/name → name.webp + name-sm.webp) or a full file path (…/name.jpg, used for every size).
+  const hasExt = s => /\.(jpe?g|png|webp)$/i.test(s);
+  const imgFull = s => hasExt(s) ? s : s + '.webp';
+  const imgSm = s => hasExt(s) ? s : s + '-sm.webp';
   function img(src, alt, o = {}) {
     const sizes = o.sizes || '(min-width: 1000px) 50vw, 100vw';
-    return `<img src="${src}-sm.webp" srcset="${src}-sm.webp 720w, ${src}.webp 1600w" sizes="${sizes}" alt="${esc(alt)}" ${o.eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async"${o.cls ? ` class="${o.cls}"` : ''}>`;
+    return `<img src="${imgSm(src)}" srcset="${imgSm(src)} 720w, ${imgFull(src)} 1600w" sizes="${sizes}" alt="${esc(alt)}" ${o.eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async"${o.cls ? ` class="${o.cls}"` : ''}>`;
   }
 
   /* ---------- Layout: header ---------- */
@@ -292,7 +298,7 @@
     body.innerHTML = cart.map(i => {
       const a = BE.findArtwork(i.id);
       return `<div class="line-item">
-        <a class="line-item__img" href="product.html?id=${a.id}"><img src="${a.images[0]}-sm.webp" alt="${esc(a.name)}" loading="lazy"></a>
+        <a class="line-item__img" href="product.html?id=${a.id}"><img src="${imgSm(a.images[0])}" alt="${esc(a.name)}" loading="lazy"></a>
         <div><h3><a href="product.html?id=${a.id}">${esc(a.name)}</a></h3><p class="meta">${esc(a.collection)} · ${esc(a.dimensions)}</p>
           <div class="qty"><button data-qty="-1" data-id="${a.id}" aria-label="Decrease quantity">−</button><span>${i.qty}</span><button data-qty="1" data-id="${a.id}" aria-label="Increase quantity">+</button></div>
           <div><button class="remove" data-remove="${a.id}">Remove</button></div></div>
@@ -311,7 +317,7 @@
     body.innerHTML = wish.map(id => {
       const a = BE.findArtwork(id);
       return `<div class="line-item">
-        <a class="line-item__img" href="product.html?id=${a.id}"><img src="${a.images[0]}-sm.webp" alt="${esc(a.name)}" loading="lazy"></a>
+        <a class="line-item__img" href="product.html?id=${a.id}"><img src="${imgSm(a.images[0])}" alt="${esc(a.name)}" loading="lazy"></a>
         <div><h3><a href="product.html?id=${a.id}">${esc(a.name)}</a></h3><p class="meta">${esc(a.collection)} · ${price(a.price)}</p>
           <div style="display:flex;gap:18px"><button class="remove" data-add="${a.id}" style="color:var(--ink)">${a.price == null ? 'Enquire' : 'Add to cart'}</button><button class="remove" data-wish-remove="${a.id}">Remove</button></div></div><span></span></div>`;
     }).join('');
@@ -392,7 +398,7 @@
   /* ---------- Art card ---------- */
   function artCard(a, o = {}) {
     const cat = BE.findCategory(a.category);
-    const tag = /1 of 1/.test(a.edition) ? 'Original' : 'Limited Edition';
+    const tag = /Original|1 of 1/.test(a.edition) ? 'Original' : 'Limited Edition';
     return `<article class="art-card${o.reveal ? ' reveal' : ''}"${o.delay ? ` style="--d:${o.delay}s"` : ''}>
       <a href="product.html?id=${a.id}" aria-label="${esc(a.name)} — view artwork">
         <div class="art-card__media">
@@ -444,7 +450,7 @@
 
   function mediumCards(target) {
     target.innerHTML = BE.categories.map((c, i) => {
-      const count = BE.artworks.filter(a => a.category === c.id).length;
+      const count = BE.artworks.filter(a => inCat(a, c.id)).length;
       return `<a class="medium-card reveal" style="--d:${(i % 4) * .08}s" href="collection.html?category=${c.id}">
         ${motif(c.id, i + 3)}
         <span class="medium-card__num">${String(i + 1).padStart(2, '0')}</span>
@@ -499,7 +505,7 @@
   }
   function showLb() {
     const lb = $('#lightbox'), it = lbSet[lbI];
-    const im = $('img', lb); im.src = it.src + '.webp'; im.alt = it.alt || '';
+    const im = $('img', lb); im.src = imgFull(it.src); im.alt = it.alt || '';
     $('.lb-cap', lb).textContent = it.alt || '';
     $$('.lb-nav', lb).forEach(b => { b.hidden = lbSet.length < 2; });
   }
@@ -611,7 +617,7 @@
     const priceOk = (a, p) => p === 'all' || (p === 'request' ? a.price == null : a.price != null && (p === 'u30' ? a.price < 30000 : p === '30-70' ? a.price >= 30000 && a.price <= 70000 : a.price > 70000));
     function render() {
       let list = BE.artworks.filter(a =>
-        (state.category === 'all' || a.category === state.category) &&
+        (state.category === 'all' || inCat(a, state.category)) &&
         (state.room === 'all' || a.rooms.includes(state.room)) &&
         priceOk(a, state.price) &&
         (!state.q || matches(a, state.q)));
@@ -620,6 +626,7 @@
       if (state.sort === 'price-desc') list.sort((a, b) => (b.price || 0) - (a.price || 0));
       if (state.sort === 'name') list.sort((a, b) => a.name.localeCompare(b.name));
       const cat = BE.findCategory(state.category);
+      $('#coll-line').textContent = cat ? '' : 'Art, elevated through material and form-sculptural expressions of timeless elegance, crafted to define extraordinary space.';
       $('#results-count').textContent = `${list.length} ${list.length === 1 ? 'work' : 'works'}${cat ? ' in ' + cat.name : ''}${state.q ? ` for “${state.q}”` : ''}`;
       $('#coll-title').textContent = cat ? cat.name : 'The Collection';
       grid.innerHTML = list.map((a, i) => artCard(a, { reveal: true, delay: (i % 3) * .08 })).join('');
@@ -650,11 +657,11 @@
     const md = $('meta[name=description]'); if (md) md.content = `${a.name}: ${a.excerpt} ${cat.name}, ${a.dimensions}. ${a.edition}. Handcrafted statement wall art by BUNT ELEGANCE.`;
     const ld = document.createElement('script'); ld.type = 'application/ld+json';
     ld.textContent = JSON.stringify({ '@context': 'https://schema.org', '@type': 'Product', name: a.name, description: a.story, brand: { '@type': 'Brand', name: 'BUNT ELEGANCE' }, category: cat.name,
-      image: a.images.map(s => new URL(s + '.webp', location.href).href), material: a.materials,
+      image: a.images.map(s => new URL(imgFull(s), location.href).href), material: a.materials,
       offers: a.price == null ? undefined : { '@type': 'Offer', price: a.price, priceCurrency: C.currency, availability: a.status === 'available' ? 'https://schema.org/InStock' : 'https://schema.org/PreOrder', url: location.href } });
     document.head.appendChild(ld);
 
-    const labels = ['The artwork', 'Detail', 'In the interior'];
+    const labels = ['The artwork', 'In the interior', 'In the interior', 'In the interior'];
     const shots = a.images.map((s, i) => ({ src: s, alt: `${a.name} — ${a.images.length === 2 && i === 1 ? 'in context' : labels[i]}` }));
     const mto = a.status !== 'available';
     root.innerHTML = `
@@ -662,16 +669,15 @@
       <div class="pdp__grid">
         <div class="gallery">
           <div class="gallery__thumbs" role="tablist" aria-label="Artwork images">
-            ${shots.map((s, i) => `<button role="tab" aria-selected="${!i}" class="${i ? '' : 'is-on'}" data-shot="${i}" aria-label="${esc(s.alt)}"><img src="${s.src}-sm.webp" alt="" loading="lazy"></button>`).join('')}
+            ${shots.map((s, i) => `<button role="tab" aria-selected="${!i}" class="${i ? '' : 'is-on'}" data-shot="${i}" aria-label="${esc(s.alt)}"><img src="${imgSm(s.src)}" alt="" loading="lazy"></button>`).join('')}
           </div>
           <div class="gallery__main" id="gallery-main" tabindex="0" aria-label="Open image viewer">
-            <img id="gallery-img" src="${shots[0].src}.webp" alt="${esc(shots[0].alt)}" fetchpriority="high">
-            <div class="zoom-lens" id="zoom-lens"></div>
-            <span class="gallery__hint">Hover to zoom · Click to enlarge</span>
+            <img id="gallery-img" src="${imgFull(shots[0].src)}" alt="${esc(shots[0].alt)}" fetchpriority="high">
+            <span class="gallery__hint">Click to enlarge</span>
           </div>
         </div>
         <div class="pdp__info">
-          <span class="eyebrow">${esc(a.collection)} · ${cat.name}</span>
+          <span class="eyebrow">${esc(a.collection)} · ${(a.categories || [a.category]).map(id => BE.findCategory(id).name).join(' · ')}</span>
           <h1>${esc(a.name)}</h1>
           <p class="lead muted">${esc(a.excerpt)}</p>
           <p class="pdp__price">${price(a.price)}</p>
@@ -681,19 +687,19 @@
             <div><dt>Format</dt><dd>${esc(a.format)}</dd></div>
             <div><dt>Dimensions</dt><dd>${esc(a.dimensions)}<br><span class="muted small">${esc(a.depth)}</span></dd></div>
             <div><dt>Materials</dt><dd>${esc(a.materials)}</dd></div>
-            <div><dt>Edition</dt><dd>${esc(a.edition)}<br><span class="muted small">${esc(a.editionNote)}</span></dd></div>
+            <div><dt>Edition</dt><dd>${esc(a.edition)}${a.editionNote ? `<br><span class="muted small">${esc(a.editionNote)}</span>` : ''}</dd></div>
+            ${a.archiveId ? `<div><dt>Archive No.</dt><dd>${esc(a.archiveId)}${a.year ? ` · ${a.year}` : ''}</dd></div>` : ''}
           </dl>
           <div class="pdp__actions">
             ${a.price == null ? '' : `<button class="btn" data-add="${a.id}">Add to cart</button>`}
             <button class="wish-lg" data-wish="${a.id}" aria-label="Save to wishlist" aria-pressed="false">${wishIcon}</button>
             <button class="btn btn--ghost" data-enquire="${a.id}">Enquire</button>
           </div>
-          <button class="vii-btn" data-vii>${I.room} View in interior</button>
           <div class="assurances">
             <div>${I.cert}Certificate of Authenticity</div><div>${I.ship}Insured, crated delivery</div><div>${I.ret}7-day return window</div>
           </div>
           <div class="accordion">
-            <details open><summary>Artwork story</summary><div class="acc-body"><p>${esc(a.story)}</p></div></details>
+            <details open><summary>Artwork story</summary><div class="acc-body">${a.story.split('\n\n').map(t => `<p>${esc(t)}</p>`).join('')}</div></details>
             <details><summary>Craftsmanship</summary><div class="acc-body"><p>Every surface is built by hand in layers — sculpted, dried, refined and sealed over several days. Metallic accents are applied individually and burnished to catch raking light.</p><ul><li>Archival, low-VOC mediums and fade-resistant pigments</li><li>Hand-finished float frame, mitred and sealed</li><li>Signed by the studio on the reverse</li></ul></div></details>
             <details><summary>Certificate of Authenticity</summary><div class="acc-body"><p>${/Unique|1 of 1|Limited/.test(a.edition) ? 'This work is accompanied by a numbered Certificate of Authenticity recording the title, edition number, dimensions, materials, date and studio signature.' : 'Eligible works are accompanied by a Certificate of Authenticity.'} A QR code on the certificate links to our verification page; NFC tags are embedded where applicable.</p><p><a class="link" href="certificate.html">About our certificates ${I.arrow}</a></p></div></details>
             <details><summary>Care instructions</summary><div class="acc-body"><ul><li>Remove dust from the textured surface with a hand air pump.</li><li>Use a long, soft brush for gentle surface dusting.</li><li>Wipe the frame with a dry microfiber cloth.</li><li>Use a hard brush only on the frame, where appropriate.</li><li>Keep away from direct sunlight, water and humidity.</li></ul><p><a class="link" href="care.html">Full care guide ${I.arrow}</a></p></div></details>
@@ -703,22 +709,16 @@
         </div>
       </div>`;
 
-    // gallery + zoom
+    // gallery
     let cur = 0;
-    const main = $('#gallery-main'), gi = $('#gallery-img'), lens = $('#zoom-lens');
+    const main = $('#gallery-main'), gi = $('#gallery-img');
     const setShot = i => {
       cur = i; gi.style.opacity = 0;
-      setTimeout(() => { gi.src = shots[i].src + '.webp'; gi.alt = shots[i].alt; gi.classList.toggle('cover', i > 0); gi.style.opacity = 1; }, 180);
-      lens.style.backgroundImage = `url(${shots[i].src}.webp)`;
+      setTimeout(() => { gi.src = imgFull(shots[i].src); gi.alt = shots[i].alt; gi.classList.toggle('cover', i > 0); gi.style.opacity = 1; }, 180);
       $$('[data-shot]').forEach((b, k) => { b.classList.toggle('is-on', k === i); b.setAttribute('aria-selected', k === i); });
     };
-    lens.style.backgroundImage = `url(${shots[0].src}.webp)`;
     $('.gallery__thumbs').addEventListener('click', e => { const b = e.target.closest('[data-shot]'); if (b) setShot(+b.dataset.shot); });
-    if (matchMedia('(hover: hover)').matches) {
-      main.addEventListener('pointerenter', () => lens.classList.add('on'));
-      main.addEventListener('pointerleave', () => lens.classList.remove('on'));
-      main.addEventListener('pointermove', e => { const r = main.getBoundingClientRect(); lens.style.backgroundPosition = `${(e.clientX - r.left) / r.width * 100}% ${(e.clientY - r.top) / r.height * 100}%`; });
-    } else { $('.gallery__hint').textContent = 'Tap to enlarge'; }
+    if (!matchMedia('(hover: hover)').matches) $('.gallery__hint').textContent = 'Tap to enlarge';
     main.addEventListener('click', () => lightbox(shots, cur));
     main.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); lightbox(shots, cur); } });
 
@@ -741,7 +741,7 @@
     const m = $('#vii'); if (!m) return;
     let room = BE.viewRooms[0], scale = 1, pos = null;
     const stage = $('.vii__stage', m), art = $('.vii__art', m);
-    art.innerHTML = `<img src="${a.images[0]}.webp" alt="${esc(a.name)} placed on the wall" draggable="false">`;
+    art.innerHTML = `<img src="${imgFull(a.images[0])}" alt="${esc(a.name)} placed on the wall" draggable="false">`;
     $('[data-vii-name]', m).textContent = a.name;
     $('[data-vii-size]', m).textContent = a.dimensions;
     const req = $('.vii__panel .btn', m);
