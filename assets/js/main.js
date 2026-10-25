@@ -684,11 +684,13 @@
           <p class="tax-note">${a.price == null ? 'Quoted on your dimensions and materials.' : 'Inclusive of taxes · Insured shipping across India included.'}</p>
           <p class="avail${mto ? ' mto' : ''}">${esc(a.availability)}</p>
           <dl class="pdp__specs">
-            <div><dt>Format</dt><dd>${esc(a.format)}</dd></div>
-            <div><dt>Dimensions</dt><dd>${esc(a.dimensions)}<br><span class="muted small">${esc(a.depth)}</span></dd></div>
-            <div><dt>Materials</dt><dd>${esc(a.materials)}</dd></div>
             <div><dt>Edition</dt><dd>${esc(a.edition)}${a.editionNote ? `<br><span class="muted small">${esc(a.editionNote)}</span>` : ''}</dd></div>
-            ${a.archiveId ? `<div><dt>Archive No.</dt><dd>${esc(a.archiveId)}${a.year ? ` · ${a.year}` : ''}</dd></div>` : ''}
+            ${a.year ? `<div><dt>Year of creation</dt><dd>${a.year}</dd></div>` : ''}
+            <div><dt>Dimensions</dt><dd>${esc(a.dimensions)}</dd></div>
+            <div><dt>Form</dt><dd>${esc(a.form)}</dd></div>
+            <div><dt>Medium</dt><dd>${esc(a.medium)}</dd></div>
+            <div><dt>Frame</dt><dd>${esc(a.frame)}</dd></div>
+            ${a.archiveId ? `<div><dt>Artwork ID</dt><dd>${esc(a.archiveId)}</dd></div>` : ''}
           </dl>
           <div class="pdp__actions">
             ${a.price == null ? '' : `<button class="btn" data-add="${a.id}">Add to cart</button>`}
