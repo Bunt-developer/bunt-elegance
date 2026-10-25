@@ -144,7 +144,7 @@
             <input id="q" name="q" type="search" placeholder="Artwork, collection or medium" autocomplete="off">
             <button class="icon-btn" aria-label="Submit search">${I.search}</button>
           </form>
-          <div class="suggest">${['Texture Art', 'Botanica', 'Diptych', 'Wooden Art', 'Living Room', 'Commission'].map(s => `<button class="chip" data-suggest="${s}">${s}</button>`).join('')}</div>
+          <div class="suggest">${['Texture Art', 'Botanica', 'Diptych', 'Wooden Art', 'Living Room'].map(s => `<button class="chip" data-suggest="${s}">${s}</button>`).join('')}</div>
           <div class="search-results" id="search-results" aria-live="polite"></div>
         </div>
       </div>
@@ -376,7 +376,7 @@
   function matches(a, q) {
     const cat = BE.findCategory(a.category);
     const hay = [a.name, a.collection, a.format, a.materials, a.palette, cat && cat.name, a.status, ...a.rooms.map(r => (BE.rooms.find(x => x.id === r) || {}).name)].join(' ').toLowerCase();
-    return q.toLowerCase().split(/\s+/).filter(Boolean).every(w => hay.includes(w) || (w === 'commission' && a.status === 'commission'));
+    return q.toLowerCase().split(/\s+/).filter(Boolean).every(w => hay.includes(w));
   }
   function runSearch() {
     const q = $('#q').value.trim(), out = $('#search-results');
@@ -384,7 +384,7 @@
     const res = BE.artworks.filter(a => matches(a, q));
     const cats = BE.categories.filter(c => c.name.toLowerCase().includes(q.toLowerCase()));
     out.innerHTML = (cats.length ? `<div style="grid-column:1/-1;display:flex;gap:10px;flex-wrap:wrap">${cats.map(c => `<a class="chip" href="collection.html?category=${c.id}">${c.name}</a>`).join('')}</div>` : '') +
-      (res.length ? res.slice(0, 8).map(a => artCard(a, { compact: true })).join('') : `<p class="muted" style="grid-column:1/-1">No artworks match “${esc(q)}”. <a class="link" href="contact.html?subject=commission">Commission a piece ${I.arrow}</a></p>`);
+      (res.length ? res.slice(0, 8).map(a => artCard(a, { compact: true })).join('') : `<p class="muted" style="grid-column:1/-1">No artworks match “${esc(q)}”.</p>`);
     counts();
   }
   document.addEventListener('input', e => { if (e.target.id === 'q') runSearch(); });
@@ -392,7 +392,7 @@
   /* ---------- Art card ---------- */
   function artCard(a, o = {}) {
     const cat = BE.findCategory(a.category);
-    const tag = a.status === 'commission' ? 'Commission' : /1 of 1/.test(a.edition) ? 'Original' : 'Limited Edition';
+    const tag = /1 of 1/.test(a.edition) ? 'Original' : 'Limited Edition';
     return `<article class="art-card${o.reveal ? ' reveal' : ''}"${o.delay ? ` style="--d:${o.delay}s"` : ''}>
       <a href="product.html?id=${a.id}" aria-label="${esc(a.name)} — view artwork">
         <div class="art-card__media">
@@ -449,7 +449,7 @@
         ${motif(c.id, i + 3)}
         <span class="medium-card__num">${String(i + 1).padStart(2, '0')}</span>
         <div><h3 class="medium-card__name">${c.name}</h3><p class="medium-card__line">${c.line}</p>
-          <div class="medium-card__foot"><span>${count ? `${count} work${count > 1 ? 's' : ''}` : 'By commission'}</span>${I.arrow}</div></div>
+          <div class="medium-card__foot"><span>${count ? `${count} work${count > 1 ? 's' : ''}` : 'Enquire'}</span>${I.arrow}</div></div>
       </a>`;
     }).join('');
   }
@@ -599,26 +599,21 @@
   /* ---------- Collection ---------- */
   function initCollection() {
     const grid = $('#product-grid'); if (!grid) return;
-    const state = { category: params.get('category') || 'all', room: params.get('room') || 'all', price: params.get('price') || 'all', avail: params.get('avail') || 'all', collection: params.get('collection') || 'all', q: params.get('q') || '', sort: params.get('sort') || 'featured' };
+    const state = { category: params.get('category') || 'all', room: params.get('room') || 'all', price: params.get('price') || 'all', q: params.get('q') || '', sort: params.get('sort') || 'featured' };
     const chips = $('#cat-chips');
-    chips.innerHTML = [['all', 'All works'], ...BE.categories.map(c => [c.id, c.name])].map(([id, n]) => `<button class="chip" data-cat="${id}">${n}</button>`).join('');
-    const collections = [...new Set(BE.artworks.map(a => a.collection))];
+    chips.innerHTML = [['all', 'ALL ARTWORKS'], ...BE.categories.map(c => [c.id, c.name])].map(([id, n]) => `<button class="chip" data-cat="${id}">${n}</button>`).join('');
     const group = (key, opts) => opts.map(([v, l]) => `<button class="chip" data-f="${key}" data-v="${v}">${l}</button>`).join('');
     $('#f-room').innerHTML = group('room', [['all', 'All spaces'], ...BE.rooms.map(r => [r.id, r.name])]);
-    $('#f-price').innerHTML = group('price', [['all', 'Any price'], ['u75', 'Under ₹75,000'], ['75-125', '₹75,000 – ₹1,25,000'], ['o125', 'Above ₹1,25,000'], ['request', 'Price on request']]);
-    $('#f-avail').innerHTML = group('avail', [['all', 'All'], ['available', 'Available now'], ['made-to-order', 'Made to order'], ['commission', 'By commission']]);
-    $('#f-coll').innerHTML = group('collection', [['all', 'All collections'], ...collections.map(c => [c, c])]);
+    $('#f-price').innerHTML = group('price', [['all', 'Any price'], ['u30', 'Under ₹30,000'], ['30-70', '₹30,000 – ₹70,000'], ['o70', 'Above ₹70,000'], ['request', 'Price on request']]);
     const qIn = $('#collection-q'); qIn.value = state.q;
     $('#sort').value = state.sort;
 
-    const priceOk = (a, p) => p === 'all' || (p === 'request' ? a.price == null : a.price != null && (p === 'u75' ? a.price < 75000 : p === '75-125' ? a.price >= 75000 && a.price <= 125000 : a.price > 125000));
+    const priceOk = (a, p) => p === 'all' || (p === 'request' ? a.price == null : a.price != null && (p === 'u30' ? a.price < 30000 : p === '30-70' ? a.price >= 30000 && a.price <= 70000 : a.price > 70000));
     function render() {
       let list = BE.artworks.filter(a =>
         (state.category === 'all' || a.category === state.category) &&
         (state.room === 'all' || a.rooms.includes(state.room)) &&
         priceOk(a, state.price) &&
-        (state.avail === 'all' || a.status === state.avail) &&
-        (state.collection === 'all' || a.collection === state.collection) &&
         (!state.q || matches(a, state.q)));
       const P = a => a.price == null ? Infinity : a.price;
       if (state.sort === 'price-asc') list.sort((a, b) => P(a) - P(b));
@@ -627,12 +622,10 @@
       const cat = BE.findCategory(state.category);
       $('#results-count').textContent = `${list.length} ${list.length === 1 ? 'work' : 'works'}${cat ? ' in ' + cat.name : ''}${state.q ? ` for “${state.q}”` : ''}`;
       $('#coll-title').textContent = cat ? cat.name : 'The Collection';
-      $('#coll-line').textContent = cat ? `${cat.line}. Every piece is handcrafted, finished and presented by the BUNT ELEGANCE studio.` : 'Collectible, handcrafted statement works — texture, relief, wood and mixed media — created to define the character of a space.';
-      const commission = `<div class="commission-card reveal"><div><span class="eyebrow light eyebrow--plain">Private Commission</span><h3>${cat && !list.length ? `${cat.name} is created by commission` : 'A work made for your wall alone'}</h3><p>Share your space, its light and its dimensions. Our studio will propose sketches, materials and a palette.</p><a class="btn btn--light" href="contact.html?subject=commission${cat ? '&medium=' + encodeURIComponent(cat.name) : ''}">Begin a commission</a></div></div>`;
-      grid.innerHTML = list.map((a, i) => artCard(a, { reveal: true, delay: (i % 3) * .08 })).join('') + commission;
+      grid.innerHTML = list.map((a, i) => artCard(a, { reveal: true, delay: (i % 3) * .08 })).join('');
       $$('[data-cat]').forEach(b => b.classList.toggle('is-on', b.dataset.cat === state.category));
       $$('[data-f]').forEach(b => b.classList.toggle('is-on', state[b.dataset.f] === b.dataset.v));
-      const active = ['room', 'price', 'avail', 'collection'].filter(k => state[k] !== 'all').length;
+      const active = ['room', 'price'].filter(k => state[k] !== 'all').length;
       $('#filter-count').textContent = active ? `(${active})` : '';
       const u = new URLSearchParams(); Object.entries(state).forEach(([k, v]) => { if (v && v !== 'all' && !(k === 'sort' && v === 'featured')) u.set(k, v); });
       history.replaceState(null, '', location.pathname + (u.toString() ? '?' + u : ''));
@@ -643,7 +636,7 @@
     $('#sort').addEventListener('change', e => { state.sort = e.target.value; render(); });
     qIn.addEventListener('input', () => { state.q = qIn.value.trim(); render(); });
     $('#filter-toggle').addEventListener('click', e => { const p = $('#filter-panel'); p.hidden = !p.hidden; e.currentTarget.setAttribute('aria-expanded', !p.hidden); });
-    $('#clear-filters').addEventListener('click', () => { Object.assign(state, { category: 'all', room: 'all', price: 'all', avail: 'all', collection: 'all', q: '' }); qIn.value = ''; render(); });
+    $('#clear-filters').addEventListener('click', () => { Object.assign(state, { category: 'all', room: 'all', price: 'all', q: '' }); qIn.value = ''; render(); });
     render();
     const on = $('.chip.is-on', chips); if (on) on.scrollIntoView({ block: 'nearest', inline: 'center' });
   }
@@ -691,7 +684,7 @@
             <div><dt>Edition</dt><dd>${esc(a.edition)}<br><span class="muted small">${esc(a.editionNote)}</span></dd></div>
           </dl>
           <div class="pdp__actions">
-            ${a.price == null ? `<button class="btn" data-enquire="${a.id}">Begin commission</button>` : `<button class="btn" data-add="${a.id}">Add to cart</button>`}
+            ${a.price == null ? '' : `<button class="btn" data-add="${a.id}">Add to cart</button>`}
             <button class="wish-lg" data-wish="${a.id}" aria-label="Save to wishlist" aria-pressed="false">${wishIcon}</button>
             <button class="btn btn--ghost" data-enquire="${a.id}">Enquire</button>
           </div>
@@ -705,7 +698,7 @@
             <details><summary>Certificate of Authenticity</summary><div class="acc-body"><p>${/Unique|1 of 1|Limited/.test(a.edition) ? 'This work is accompanied by a numbered Certificate of Authenticity recording the title, edition number, dimensions, materials, date and studio signature.' : 'Eligible works are accompanied by a Certificate of Authenticity.'} A QR code on the certificate links to our verification page; NFC tags are embedded where applicable.</p><p><a class="link" href="certificate.html">About our certificates ${I.arrow}</a></p></div></details>
             <details><summary>Care instructions</summary><div class="acc-body"><ul><li>Remove dust from the textured surface with a hand air pump.</li><li>Use a long, soft brush for gentle surface dusting.</li><li>Wipe the frame with a dry microfiber cloth.</li><li>Use a hard brush only on the frame, where appropriate.</li><li>Keep away from direct sunlight, water and humidity.</li></ul><p><a class="link" href="care.html">Full care guide ${I.arrow}</a></p></div></details>
             <details><summary>Shipping</summary><div class="acc-body"><p>Complimentary insured shipping across India in a custom crate with corner protection. International delivery is available on request and quoted individually. Dispatch timelines are shown under availability.</p><p><a class="link" href="shipping.html">Shipping details ${I.arrow}</a></p></div></details>
-            <details><summary>Returns</summary><div class="acc-body"><p>Ready-to-ship works may be returned within 7 days of delivery in original packaging and condition. Made-to-order and commissioned works are final sale. Transit damage is covered in full.</p><p><a class="link" href="shipping.html#returns">Returns policy ${I.arrow}</a></p></div></details>
+            <details><summary>Returns</summary><div class="acc-body"><p>Ready-to-ship works may be returned within 7 days of delivery in original packaging and condition. Made-to-order works are final sale. Transit damage is covered in full.</p><p><a class="link" href="shipping.html#returns">Returns policy ${I.arrow}</a></p></div></details>
           </div>
         </div>
       </div>`;
@@ -736,7 +729,7 @@
     // sticky mobile buy bar
     const sb = $('#sticky-buy');
     if (sb) {
-      sb.innerHTML = `<div class="t"><b>${esc(a.name)}</b><span>${price(a.price)}</span></div>${a.price == null ? `<button class="btn" data-enquire="${a.id}">Enquire</button>` : `<button class="btn" data-add="${a.id}">Add to cart</button>`}`;
+      sb.innerHTML = `<div class="t"><b>${esc(a.name)}</b><span>${price(a.price)}</span></div>${a.price == null ? '' : `<button class="btn" data-add="${a.id}">Add to cart</button>`}`;
       const target = $('.pdp__actions');
       new IntersectionObserver(([en]) => { const on = !en.isIntersecting && en.boundingClientRect.top < 0; sb.classList.toggle('is-on', on); document.body.classList.toggle('has-sticky', on); }).observe(target);
     }
@@ -779,11 +772,10 @@
   /* ---------- Contact page pre-fill ---------- */
   function initContact() {
     const f = $('#contact-form'); if (!f) return;
-    const s = params.get('subject'), art = params.get('artwork'), med = params.get('medium');
-    const map = { commission: 'Private commission', collector: 'Collector Privilege', trade: 'Trade & interior designers', verify: 'Certificate verification' };
+    const s = params.get('subject'), art = params.get('artwork');
+    const map = { collector: 'Collector Privilege', trade: 'Trade & interior designers', verify: 'Certificate verification' };
     if (s && map[s]) f.subject.value = map[s];
     if (art) { const a = BE.findArtwork(art); if (a) f.message.value = `I am interested in ${a.name}.`; }
-    if (med) f.message.value = `I would like to commission a piece in ${med}.`;
   }
 
   /* ---------- Boot ---------- */
