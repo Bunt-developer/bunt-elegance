@@ -332,17 +332,23 @@ ul, ol { padding: 0; list-style: none; }
 .on-dark .art-card__coll { color: var(--mist); }
 .on-dark .art-card__media { background: var(--graphite); }
 
+/* Featured collection editorial grid — show each artwork uncropped at its natural ratio */
+.editorial-grid .art-card__media { aspect-ratio: auto; }
+.editorial-grid .art-card__media .mat { position: relative; inset: auto; display: block; }
+.editorial-grid .art-card__media .mat img { width: 100%; height: auto; object-fit: contain; display: block; }
+.editorial-grid .art-card__media .alt { object-fit: contain; background: var(--ivory); }
+.editorial-grid .art-card:hover .mat { transform: none; }
+.editorial-grid { align-items: start; }
+
 /* Featured collection editorial grid */
 .editorial-grid { display: grid; gap: clamp(48px, 6vw, 88px) clamp(20px, 3vw, 44px); grid-template-columns: 1fr; }
 @media (min-width: 700px) { .editorial-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 1100px) {
   .editorial-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); }
   .editorial-grid > :nth-child(1) { grid-column: 1 / span 7; }
-  .editorial-grid > :nth-child(1) .art-card__media { aspect-ratio: 7 / 6; }
   .editorial-grid > :nth-child(2) { grid-column: 9 / span 4; margin-top: 22%; }
   .editorial-grid > :nth-child(3) { grid-column: 1 / span 4; }
   .editorial-grid > :nth-child(4) { grid-column: 6 / span 7; margin-top: 12%; }
-  .editorial-grid > :nth-child(4) .art-card__media { aspect-ratio: 7 / 6; }
   .editorial-grid > :nth-child(5) { grid-column: 2 / span 5; }
   .editorial-grid > :nth-child(6) { grid-column: 8 / span 4; margin-top: 18%; }
 }
