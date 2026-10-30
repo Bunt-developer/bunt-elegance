@@ -74,10 +74,10 @@ BE.artworks = [
     featured: true,
     signature: true,
     images: [
-      IMG + "art/flowing-balance-4.jpeg",
-      IMG + "art/flowing-balance-1.jpeg",
-      IMG + "art/flowing-balance-2.jpeg",
-      IMG + "art/flowing-balance-3.jpeg",
+      IMG + "art/flowing-balance-4",
+      IMG + "art/flowing-balance-1",
+      IMG + "art/flowing-balance-2",
+      IMG + "art/flowing-balance-3",
     ],
     excerpt: "Balance is not stillness. It is the harmony of movement.",
     story:
@@ -107,10 +107,10 @@ BE.artworks = [
     palette: "Deep green & silver",
     featured: true,
     images: [
-      IMG + "art/interwoven-rhythm-1.jpeg",
-      IMG + "art/interwoven-rhythm-2.jpeg",
-      IMG + "art/interwoven-rhythm-3.jpeg",
-      IMG + "art/interwoven-rhythm-4.jpeg",
+      IMG + "art/interwoven-rhythm-1",
+      IMG + "art/interwoven-rhythm-2",
+      IMG + "art/interwoven-rhythm-3",
+      IMG + "art/interwoven-rhythm-4",
     ],
     excerpt: "Different paths. One rhythm.",
     story:
@@ -139,10 +139,10 @@ BE.artworks = [
     palette: "Ivory & taupe",
     featured: true,
     images: [
-      IMG + "art/fragments-of-stillness-1.jpeg",
-      IMG + "art/fragments-of-stillness-2.jpeg",
-      IMG + "art/fragments-of-stillness-3.jpeg",
-      IMG + "art/fragments-of-stillness-4.jpeg",
+      IMG + "art/fragments-of-stillness-1",
+      IMG + "art/fragments-of-stillness-2",
+      IMG + "art/fragments-of-stillness-3",
+      IMG + "art/fragments-of-stillness-4",
     ],
     excerpt: "Beauty is not found in perfection, but in the way each piece finds its place.",
     story:
