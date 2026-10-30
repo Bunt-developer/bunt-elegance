@@ -6,7 +6,7 @@ Static luxury e-commerce site for BUNT ELEGANCE. No build step: plain HTML, CSS 
 1. Create a repository and upload **the contents of this `website` folder** to its root (so `index.html` is at the top level).
 2. In the repository: **Settings → Pages → Build and deployment → Deploy from a branch → `main` / `(root)`**.
 3. The site will be live at `https://<username>.github.io/<repo>/` within a minute or two.
-4. Custom domain (`www.buntelegance.com`): add it under Settings → Pages → Custom domain, then point a `CNAME` DNS record for `www` to `<username>.github.io`. GitHub will create the `CNAME` file for you.
+4. Custom domain (`buntelegance.com`): add it under Settings → Pages → Custom domain, then point a `CNAME` DNS record for `www` to `<username>.github.io`. GitHub will create the `CNAME` file for you.
 
 `.nojekyll` is included so GitHub serves every file as-is.
 

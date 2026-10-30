@@ -8,7 +8,7 @@ BE.config = {
   brand: "BUNT ELEGANCE",
   tagline: "ART THAT DEFINES YOUR SPACE",
   email: "buntelegance@gmail.com",
-  website: "www.buntelegance.com",
+  website: "buntelegance.com",
   whatsapp: "919081608190", // international format, no "+" or spaces
   phoneDisplay: "+91 90816 08190",
   currency: "INR",

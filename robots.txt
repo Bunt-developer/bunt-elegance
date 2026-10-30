@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.buntelegance.com/sitemap.xml
+Sitemap: https://buntelegance.com/sitemap.xml
