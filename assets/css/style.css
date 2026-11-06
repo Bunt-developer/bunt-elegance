@@ -874,3 +874,23 @@ body.has-sticky .wa-float { bottom: 86px; }
   .reveal { opacity: 1; transform: none; }
   .hero__title .line > span { transform: none; }
 }
+
+/* ---------- Private authenticity pages (a/<uuid>/) ---------- */
+.cert-page { background: var(--ivory); }
+.cert-header { display: grid; place-items: center; padding: 28px var(--gutter) 8px; }
+.cert-header img { height: 64px; width: auto; }
+.cert { padding: clamp(32px, 6vw, 88px) 0; }
+.cert__inner { display: grid; gap: clamp(28px, 5vw, 72px); align-items: start; }
+@media (min-width: 900px) { .cert__inner { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); } .cert__media { position: sticky; top: 32px; } }
+.cert__media { width: 100%; max-height: 80vh; }
+.cert__body { display: grid; gap: 18px; }
+.cert__seal { display: inline-flex; align-items: center; gap: 10px; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--bronze); }
+.cert__seal span { display: inline-grid; place-items: center; width: 22px; height: 22px; border: 1px solid currentColor; border-radius: 50%; font-size: 12px; }
+.cert__specs { display: grid; border-top: 1px solid var(--line); margin: 8px 0; }
+.cert__specs > div { display: grid; grid-template-columns: 150px 1fr; gap: 20px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.cert__specs dt { font-size: 10px; letter-spacing: .28em; text-transform: uppercase; color: var(--gold); padding-top: 4px; }
+.cert__specs dd { font-size: 15px; color: var(--ink); }
+@media (max-width: 560px) { .cert__specs > div { grid-template-columns: 1fr; gap: 4px; } }
+.cert__note { font-size: 14px; line-height: 1.8; color: var(--stone); max-width: 52ch; }
+.cert__note a { text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--gold); }
+.cert-footer { padding: 32px var(--gutter) 48px; text-align: center; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--stone); }
