@@ -21,7 +21,7 @@ Static luxury e-commerce site for BUNT ELEGANCE. No build step: plain HTML, CSS 
 | `contact.html` | Enquiry form, WhatsApp, FAQ (`?subject=commission` / `collector` pre-selects) |
 | `care.html` | Art Care Guide (air pump, microfiber cloth, long soft brush, hard brush) |
 | `certificate.html` | Certificate of Authenticity & verification request |
-| `shipping.html`, `legal.html`, `404.html` | Client services, privacy/terms, not-found |
+| `shipping.html`, `returns.html`, `legal.html`, `404.html` | Client services, privacy/terms, not-found |
 
 ## Editing content
 Everything catalogue-related lives in **`assets/js/data.js`**:

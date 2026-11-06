@@ -1,0 +1,4 @@
+- keep mobile responseive and dextop responsive
+- folllow all the web accessibility guidelines
+- follow all SEO bestpractices
+- 

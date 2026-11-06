@@ -141,7 +141,7 @@
       ["about.html", "About"],
       ["contact.html", "Contact"],
       ["shipping.html", "Shipping"],
-      ["shipping.html#returns", "Returns & Refunds"],
+      ["returns.html", "Returns & Refunds"],
       ["legal.html#privacy", "Privacy"],
       ["legal.html#terms", "Terms"],
       ["care.html", "Care Guide"],
@@ -1276,9 +1276,9 @@
               .join("")}</div></details>
             <details><summary>Craftsmanship</summary><div class="acc-body"><p>Handcrafted in layers using archival pigments, Sealed for longevity.</p></div></details>
             <details><summary>Certificate of Authenticity</summary><div class="acc-body"><p>Each original artwork by Bunt Elegance is accompanied by a Certificate Of Authenticity, documenting its title, edition, dimensions, materials, and year of creation. A NFC tag on the reverse provides access to its artwork details.</p><p><a class="link" href="certificate.html">About our certificates ${I.arrow}</a></p></div></details>
-            <details><summary>Care instructions</summary><div class="acc-body"><ul><li>Remove dust from the textured surface with a hand air blower.</li><li>Use a long, hard brush for gentle surface dusting.</li><li>Use a soft brush only on the frame, where appropriate.</li><li>Wipe the frame with a dry microfiber pad.</li><li>Keep away from direct sunlight, water &amp; humidity.</li></ul><p><a class="link" href="care.html">Full care guide ${I.arrow}</a></p></div></details>
+            <details><summary>Care instructions</summary><div class="acc-body"><ul><li>Remove dust from the textured surface with a hand air blower.</li><li>Use a soft brush for gentle surface dusting.</li><li>Use a hard brush only on frame corners, away from the artwork.</li><li>Wipe the frame with a dry microfiber pad.</li><li>Keep away from direct sunlight, water &amp; humidity.</li></ul><p><a class="link" href="care.html">Full care guide ${I.arrow}</a></p></div></details>
             <details><summary>Shipping</summary><div class="acc-body"><p>Carefully packaged, securely delivered. Shipping charges are calculated separately and communicated at checkout before order confirmation.</p><p><a class="link" href="shipping.html">Shipping details ${I.arrow}</a></p></div></details>
-            <details><summary>Returns &amp; Refunds</summary><div class="acc-body"><p>Returns &amp; exchanges are not accepted. In the event of transit damage, please contact us with photos of the damaged artwork. Refunds may be issued upon verification of the damage.</p><p><a class="link" href="shipping.html#returns">Returns &amp; refunds ${I.arrow}</a></p></div></details>
+            <details><summary>Returns &amp; Refunds</summary><div class="acc-body"><p>Returns &amp; exchanges are not accepted. We do not accept returns unless the artwork arrives damaged. Damage must be reported within 72 hours of delivery with a continuous unboxing video and clear photos; refunds are considered after the damage is verified.</p><p><a class="link" href="returns.html">Returns &amp; refunds ${I.arrow}</a></p></div></details>
           </div>
         </div>
       </div>`;
