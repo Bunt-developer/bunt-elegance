@@ -148,6 +148,38 @@ BE.artworks = [
     story:
       "This artwork explores the beauty of imperfection, individuality, and quiet moments.\n\nNine sculptural forms sit within a calm, textured surface. Although they share a similar shape, each one bends, folds, and moves differently — suggesting that no two experiences, moments, or people are exactly the same.\n\nThe soft ivory forms represent clarity, calm, and individuality, while the single dark form introduces contrast, depth, and the idea of embracing difference.\n\nThe empty space between each form is just as important as the forms themselves. It creates silence, balance, and breathing room, allowing every individual piece to exist without competing with the others.\n\n“Beauty is not found in perfection, but in the way each piece finds its place.”",
   },
+  {
+    id: "BE-2026-004",
+    name: "Golden Veins",
+    archiveId: "BE-2026-004",
+    year: 2026,
+    collection: "Original",
+    category: "texture",
+    price: 46900,
+    format: "Original",
+    dimensions: "36 × 24 inches",
+    size: { w: 61, h: 91 },
+    form: "Organic gold relief veins on a warm ivory textured surface",
+    medium: "Canvas",
+    frame: "Golden",
+    materials: "Organic gold relief veins on a warm ivory textured surface, on canvas. Golden frame.",
+    edition: "Original",
+    editionNote: "",
+    availability: "Available — ships in 2–3 weeks",
+    status: "available",
+    rooms: ["living", "bedroom", "office", "entry"],
+    palette: "Ivory & gold",
+    featured: true,
+    images: [
+      IMG + "art/golden-veins-1",
+      IMG + "art/golden-veins-2",
+      IMG + "art/golden-veins-3",
+      IMG + "art/golden-veins-4",
+    ],
+    excerpt: "Imperfection reveals extraordinary beauty.",
+    story:
+      "Golden Veins explores the beauty of imperfection through organic cracks and flowing gold.\n\nThe warm ivory surface represents calm and simplicity, while the gold symbolises strength, value, and transformation.\n\nTogether, they reveal how imperfections can become the most beautiful part of a whole.\n\n“Imperfection reveals extraordinary beauty.”",
+  },
 ];
 
 /* Rooms used by the "View in Interior" feature.
