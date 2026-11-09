@@ -38,7 +38,7 @@
 
   root.innerHTML =
     '<div class="cert-ui">' +
-      '<h1 class="cert-ui__title">' + esc(d.name) + " <span>&middot; " + esc(d.archiveId) + "</span></h1>" +
+      '<h1 class="cert-ui__title">' + esc(d.name) + "<span>" + esc(d.archiveId) + "</span></h1>" +
     "</div>" +
     '<div class="cert-stage"><div class="cert-sheets">' +
       /* ---- page 1 ---- */
