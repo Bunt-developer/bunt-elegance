@@ -882,6 +882,7 @@ body.has-sticky .wa-float { bottom: 86px; }
 .cert-ui__title { font-family: var(--serif); font-weight: 400; font-size: clamp(26px, 4vw, 40px); }
 .cert-ui__title span { color: var(--gold); font-size: .6em; letter-spacing: .12em; }
 .cert-ui__actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+.cert-ui--end { margin: 32px 0 0; }
 .cert-ui__hint { font-size: 13px; color: var(--stone); }
 .cert-stage { width: 100%; max-width: 793px; margin: 0 auto; overflow-x: auto; }
 .cert-stage.is-scaled { overflow: hidden; }

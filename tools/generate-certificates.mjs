@@ -60,10 +60,10 @@ function certData(a) {
   return {
     name: a.name, archiveId: a.archiveId, certNo: `COA-${a.archiveId}`,
     series: a.series || a.collection, edition: a.edition, editionNote: a.editionNote || "",
-    year: a.year, type: cat && cat.name, medium: a.medium, dimensions: a.dimensions,
+    year: a.year, type: a.certType || (cat && cat.name), medium: a.medium, dimensions: a.dimensions,
     frame: a.frame, form: a.form,
     artist: SIGNERS.artist, issuedBy: SIGNERS.issuedBy,
-    issuedOn: d.issuedOn || "",
+    issuedOn: a.issuedOn || d.issuedOn || "",
     images: a.images.map((s) => (/\.\w+$/.test(s) ? s : s + ".webp")),
     contact: { website: "www." + BE.config.website, phone: "+" + BE.config.whatsapp.replace(/^(\d{2})(\d{5})(\d{5})$/, "$1 $2$3"), email: BE.config.email },
   };
