@@ -9,6 +9,11 @@
  *   private/nfc-links.json (git-ignored, never published) and is reused on every run,
  *   so an NFC link never changes once written to a card.
  * - private/nfc-links.csv is rewritten with artwork -> URL for programming the NFC cards.
+ * - Each page only carries its artwork data (JSON). The certificate layout is one shared template:
+ *   assets/js/certificate.js + the .cert-/.cs- rules in assets/css/style.css. No PDFs are stored;
+ *   visitors use Print -> Save as PDF (fixed A4-landscape print layout, same on every device).
+ * - Per-certificate sale details (collector name, date of issue) can be added in the git-ignored
+ *   private/certificate-details.json:  { "BE-2026-004": { "collector": "Name", "issuedOn": "27 / 09 / 2026" } }
  * - The pages are noindex, are not in sitemap.xml and are not linked from anywhere on the site.
  */
 import fs from "node:fs";
@@ -41,17 +46,34 @@ fs.writeFileSync(MAP_FILE, JSON.stringify(map, null, 2) + "\n");
 const known = new Set(BE.artworks.map((a) => a.id));
 for (const id of Object.keys(map)) if (!known.has(id)) console.warn(`! ${id} is in nfc-links.json but not in data.js (page left untouched)`);
 
-const row = (k, v) => (v ? `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>` : "");
+const SIGNERS = {
+  artist: "Dr. Jeni Bhadja",
+  issuedBy: "Dr. Jeni Bhadja & Anand Bhadja",
+  signatures: ["Jeni Bhadja", "Anand Bhadja"],
+};
+const DETAILS_FILE = path.join(ROOT, "private", "certificate-details.json");
+const details = fs.existsSync(DETAILS_FILE) ? JSON.parse(fs.readFileSync(DETAILS_FILE, "utf8")) : {};
 
-function page(a, uuid) {
+/** Data handed to the shared template — everything the page needs, nothing else. */
+function certData(a) {
   const cat = BE.categories.find((c) => c.id === a.category);
-  const img = a.images[0];
-  const hasExt = /\.\w+$/.test(img);
-  const full = "../../" + (hasExt ? img : img + ".webp");
-  const sm = "../../" + (hasExt ? img : img + "-sm.webp");
-  const ratio = a.size ? `${a.size.w} / ${a.size.h}` : "4 / 5";
+  const d = details[a.id] || {};
+  return {
+    name: a.name, archiveId: a.archiveId, certNo: `COA-${a.archiveId}`,
+    series: a.series || a.collection, edition: a.edition, editionNote: a.editionNote || "",
+    year: a.year, type: cat && cat.name, medium: a.medium, dimensions: a.dimensions,
+    frame: a.frame, form: a.form,
+    artist: SIGNERS.artist, issuedBy: SIGNERS.issuedBy, signatures: SIGNERS.signatures,
+    issuedOn: d.issuedOn || "", collector: d.collector || "",
+    contact: { website: "www." + BE.config.website, phone: "+" + BE.config.whatsapp.replace(/^(\d{2})(\d{5})(\d{5})$/, "$1 $2$3"), email: BE.config.email },
+  };
+}
+
+/** Thin shell: head/meta + data + shared renderer. */
+function page(a) {
   const title = `Certificate of Authenticity — ${a.name} | BUNT ELEGANCE`;
-  const desc = `Authenticity record for ${a.name} (${a.archiveId}), an original by BUNT ELEGANCE.`;
+  const desc = `Certificate of Authenticity for ${a.name} (${a.archiveId}), an original by BUNT ELEGANCE.`;
+  const json = JSON.stringify(certData(a)).replace(/</g, "\\u003c");
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -67,45 +89,14 @@ function page(a, uuid) {
   <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../assets/css/style.css">
 </head>
 <body class="cert-page">
   <a class="skip-link" href="#main">Skip to content</a>
-  <header class="cert-header">
-    <a href="../../index.html" aria-label="BUNT ELEGANCE — website"><img src="../../assets/img/logo/logo.svg" alt="BUNT ELEGANCE — Art that defines your space" width="160" height="80"></a>
-  </header>
-  <main id="main">
-    <section class="cert">
-      <div class="container cert__inner">
-        <figure class="cert__media frame" style="aspect-ratio:${ratio}">
-          <img src="${esc(sm)}" srcset="${esc(sm)} 720w, ${esc(full)} 1600w" sizes="(min-width:900px) 45vw, 92vw" alt="${esc(a.name)} — original artwork by BUNT ELEGANCE" fetchpriority="high" decoding="async">
-        </figure>
-        <div class="cert__body">
-          <span class="eyebrow">Certificate of Authenticity</span>
-          <h1 class="h2">${esc(a.name)}</h1>
-          <p class="cert__seal"><span aria-hidden="true">&#10003;</span> Authentic original by BUNT ELEGANCE</p>
-          <dl class="cert__specs">
-            ${row("Certificate no.", a.archiveId)}
-            ${row("Title", a.name)}
-            ${row("Year", a.year)}
-            ${row("Collection", a.collection)}
-            ${row("Category", cat && cat.name)}
-            ${row("Form", a.form)}
-            ${row("Medium", a.medium)}
-            ${row("Frame", a.frame)}
-            ${row("Dimensions", a.dimensions)}
-            ${row("Edition", [a.edition, a.editionNote].filter(Boolean).join(" — "))}
-          </dl>
-          <p class="cert__note">This page confirms that the artwork named above was handcrafted by BUNT ELEGANCE and is accompanied by a Certificate of Authenticity. Please keep this link and your physical certificate card safe, and share the link only with people you trust.</p>
-          <p class="cert__note">Questions about this artwork? Write to <a href="mailto:${esc(BE.config.email)}?subject=${encodeURIComponent("Authenticity enquiry — " + a.archiveId)}">${esc(BE.config.email)}</a>.</p>
-        </div>
-      </div>
-    </section>
-  </main>
-  <footer class="cert-footer">
-    <p>&copy; ${new Date().getFullYear()} BUNT ELEGANCE &middot; ${esc(BE.config.tagline)}</p>
-  </footer>
+  <main id="main" class="cp-wrap"><div id="cert-root"><noscript><p class="cert-ui__hint">Please enable JavaScript to view this certificate. ${esc(a.name)} &middot; ${esc(a.archiveId)}.</p></noscript></div></main>
+  <script type="application/json" id="cert-data">${json}</script>
+  <script src="../../assets/js/certificate.js"></script>
 </body>
 </html>
 `;
@@ -116,7 +107,7 @@ for (const a of BE.artworks) {
   const uuid = map[a.id];
   const dir = path.join(ROOT, "a", uuid);
   fs.mkdirSync(dir, { recursive: true });
-  fs.writeFileSync(path.join(dir, "index.html"), page(a, uuid));
+  fs.writeFileSync(path.join(dir, "index.html"), page(a));
   const url = `${ORIGIN}/a/${uuid}/`;
   csv.push(`${a.id},"${a.name.replace(/"/g, '""')}",${url}`);
   console.log(`${a.id}  ${a.name.padEnd(26)} ${url}`);
