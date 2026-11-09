@@ -12,8 +12,8 @@
  * - Each page only carries its artwork data (JSON). The certificate layout is one shared template:
  *   assets/js/certificate.js + the .cert-/.cs- rules in assets/css/style.css. No PDFs are stored;
  *   visitors use Print -> Save as PDF (fixed A4-landscape print layout, same on every device).
- * - Per-certificate sale details (collector name, date of issue) can be added in the git-ignored
- *   private/certificate-details.json:  { "BE-2026-004": { "collector": "Name", "issuedOn": "27 / 09 / 2026" } }
+ * - Per-certificate sale details (date of issue) can be added in the git-ignored
+ *   private/certificate-details.json:  { "BE-2026-004": { "issuedOn": "06/11/2026" } }
  * - The pages are noindex, are not in sitemap.xml and are not linked from anywhere on the site.
  */
 import fs from "node:fs";
@@ -47,9 +47,8 @@ const known = new Set(BE.artworks.map((a) => a.id));
 for (const id of Object.keys(map)) if (!known.has(id)) console.warn(`! ${id} is in nfc-links.json but not in data.js (page left untouched)`);
 
 const SIGNERS = {
-  artist: "Dr. Jeni Bhadja",
-  issuedBy: "Dr. Jeni Bhadja & Anand Bhadja",
-  signatures: ["Jeni Bhadja", "Anand Bhadja"],
+  artist: "Mrs. Jeni",
+  issuedBy: "Mrs. Jeni & Mr. Anand",
 };
 const DETAILS_FILE = path.join(ROOT, "private", "certificate-details.json");
 const details = fs.existsSync(DETAILS_FILE) ? JSON.parse(fs.readFileSync(DETAILS_FILE, "utf8")) : {};
@@ -63,8 +62,9 @@ function certData(a) {
     series: a.series || a.collection, edition: a.edition, editionNote: a.editionNote || "",
     year: a.year, type: cat && cat.name, medium: a.medium, dimensions: a.dimensions,
     frame: a.frame, form: a.form,
-    artist: SIGNERS.artist, issuedBy: SIGNERS.issuedBy, signatures: SIGNERS.signatures,
-    issuedOn: d.issuedOn || "", collector: d.collector || "",
+    artist: SIGNERS.artist, issuedBy: SIGNERS.issuedBy,
+    issuedOn: d.issuedOn || "",
+    images: a.images.map((s) => (/\.\w+$/.test(s) ? s : s + ".webp")),
     contact: { website: "www." + BE.config.website, phone: "+" + BE.config.whatsapp.replace(/^(\d{2})(\d{5})(\d{5})$/, "$1 $2$3"), email: BE.config.email },
   };
 }

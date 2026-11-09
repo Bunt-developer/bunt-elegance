@@ -883,44 +883,44 @@ body.has-sticky .wa-float { bottom: 86px; }
 .cert-ui__title span { color: var(--gold); font-size: .6em; letter-spacing: .12em; }
 .cert-ui__actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
 .cert-ui__hint { font-size: 13px; color: var(--stone); }
-.cert-stage { width: 100%; max-width: 1122px; margin: 0 auto; overflow-x: auto; box-shadow: 0 30px 60px -34px rgba(15,14,13,.4); }
+.cert-stage { width: 100%; max-width: 793px; margin: 0 auto; overflow-x: auto; }
 .cert-stage.is-scaled { overflow: hidden; }
-.cert-sheet { width: 1122px; height: 793px; transform-origin: top left; background: linear-gradient(135deg, #fcfaf6 0%, #f4ede3 100%); color: #2a2623; font-family: var(--sans); padding: 14px; box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-.cs-frame { height: 100%; box-sizing: border-box; border: 1px solid #c8a96a; outline: 1px solid #d9c493; outline-offset: -7px; padding: 16px 54px 14px; display: flex; flex-direction: column; }
-.cs-head { text-align: center; }
-.cs-head img { height: 76px; width: auto; display: block; margin: 0 auto; }
-.cs-title { font-family: var(--serif); font-weight: 600; font-size: 42px; letter-spacing: .05em; text-transform: uppercase; line-height: 1.1; margin-top: 10px; color: #2b2522; }
-.cs-sub { display: flex; align-items: center; gap: 22px; justify-content: center; margin-top: 8px; font-size: 12px; letter-spacing: .38em; text-transform: uppercase; color: #3a322d; }
-.cs-sub::before, .cs-sub::after { content: ''; height: 1px; width: 150px; background: #b08d57; }
-.cs-body { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-top: 16px; flex: 1; }
-.cs-specs { padding-right: 46px; border-right: 1px solid #cdbfa9; display: grid; align-content: start; }
-.cs-specs > div { display: grid; grid-template-columns: 215px 1fr; padding: 10px 0; border-bottom: 1px solid #d6cab7; font-size: 14.5px; line-height: 1.3; }
-.cs-specs dt::after { content: ':'; float: right; margin-right: 18px; }
-.cs-specs dd { font-weight: 400; }
-.cs-statement { padding-left: 46px; }
-.cs-statement h3 { font-family: var(--serif); font-weight: 600; font-size: 24px; letter-spacing: .03em; text-transform: uppercase; margin-bottom: 14px; }
-.cs-statement p { font-size: 14.5px; line-height: 1.5; margin-bottom: 10px; color: #2f2925; }
-.cs-sign { position: relative; display: grid; grid-template-columns: 1fr 1.7fr 1fr .85fr 1fr 120px; align-items: stretch; border-top: 1px solid #cdbfa9; margin-top: 8px; padding-top: 10px; min-height: 108px; }
-.cs-cell { display: flex; flex-direction: column; gap: 5px; padding: 0 16px; border-left: 1px solid #cdbfa9; font-size: 14px; }
-.cs-cell:first-child { border-left: 0; padding-left: 0; }
-.cs-cell--c { justify-content: center; text-align: center; }
-.cs-cell b { font-weight: 500; white-space: nowrap; }
-.cs-label { font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: #3a322d; }
-.cs-sig { font-family: 'Pinyon Script', cursive; font-style: normal; font-size: 30px; line-height: 1.1; margin-top: 2px; white-space: nowrap; color: #1f2a44; }
-.cs-sig--sm { font-size: 24px; margin-top: 2px; }
-.cs-seal { position: absolute; right: -10px; top: -4px; width: 124px; height: 124px; border-radius: 50%; display: grid; place-content: center; justify-items: center; gap: 4px; text-align: center; background: radial-gradient(circle, #fbf8f2 55%, #efe5d3 100%); border: 3px solid #d4b673; box-shadow: inset 0 0 0 5px #fbf8f2, inset 0 0 0 6px #d4b673; font-size: 7px; letter-spacing: .06em; text-transform: uppercase; color: #3a322d; line-height: 1.35; }
-.cs-seal img { height: 26px; width: auto; }
-.cs-seal b { font-family: var(--serif); font-size: 12px; letter-spacing: .06em; font-weight: 600; }
-.cs-seal span:last-child { margin-top: 6px; }
-.cs-foot { display: flex; justify-content: center; gap: 0; margin-top: 8px; padding-top: 10px; border-top: 1px solid #d6cab7; font-size: 13.5px; }
-.cs-foot span { display: inline-flex; align-items: center; gap: 10px; padding: 0 38px; border-left: 1px solid #cdbfa9; }
-.cs-foot span:first-child { border-left: 0; }
-.cs-foot svg { width: 20px; height: 20px; fill: none; stroke: #2a2623; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-@page { size: 297mm 210mm; margin: 0; }
+.cert-sheets { width: 793px; transform-origin: top left; display: grid; gap: 24px; font-family: var(--sans); color: #2a2320; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.cs-page { width: 793px; height: 1122px; box-sizing: border-box; background: #eddfcd; padding: 54px 52px 44px; display: flex; flex-direction: column; align-items: center; overflow: hidden; box-shadow: 0 24px 50px -30px rgba(15,14,13,.45); }
+.cs-logo { width: auto; }
+.cs-head { text-align: center; display: grid; justify-items: center; }
+.cs-rule { display: block; width: 92px; height: 1px; background: #7a4f31; margin: 16px 0 34px; }
+.cs-title { font-family: var(--sans); font-weight: 600; font-size: 29px; letter-spacing: .02em; text-transform: uppercase; line-height: 1.15; }
+.cs-sub { font-size: 17px; letter-spacing: .02em; text-transform: uppercase; margin-top: 4px; font-weight: 400; }
+.cs-head--lg { margin-top: 30px; }
+.cs-head--lg .cs-title { margin-bottom: 30px; }
+.cs-head--lg .cs-rule { margin: 30px 0 38px; }
+.cs-main { display: flex; gap: 38px; align-items: center; width: 100%; margin-top: 36px; }
+.cs-hero { width: 312px; height: 437px; object-fit: cover; flex: none; }
+.cs-specs { flex: 1; display: grid; }
+.cs-specs > div { display: flex; justify-content: space-between; gap: 14px; padding: 14px 0 12px; border-bottom: 1px solid #8a5a3b; font-size: 12.5px; line-height: 1.3; }
+.cs-specs > div:first-child { padding-top: 0; }
+.cs-specs > div:last-child { border-bottom: 0; }
+.cs-specs dt::after { content: ' :'; }
+.cs-specs dd { text-align: right; font-weight: 400; }
+.cs-thumbs { display: flex; gap: 22px; width: 100%; margin-top: 40px; }
+.cs-thumb { flex: 1; min-width: 0; aspect-ratio: 1 / 1; height: auto; object-fit: cover; object-position: center 38%; }
+.cs-tag { margin-top: auto; font-size: 15px; letter-spacing: .01em; text-transform: uppercase; text-align: center; }
+.cs-statement { width: 100%; padding: 0 6px; display: grid; gap: 22px; font-size: 15.5px; line-height: 1.5; }
+.cs-sign { width: 100%; margin-top: 44px; border-top: 1px solid #7a4f31; padding: 28px 6px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 96px 40px; }
+.cs-sign > div { display: grid; gap: 10px; align-content: start; }
+.cs-label { font-size: 13px; letter-spacing: .03em; text-transform: uppercase; }
+.cs-sign b { font-size: 16px; font-weight: 400; }
+.cs-foot { width: 100%; margin-top: auto; border-top: 1px solid #7a4f31; padding-top: 18px; display: flex; justify-content: space-between; font-size: 14px; }
+.cs-foot span { display: inline-flex; align-items: center; gap: 8px; }
+.cs-foot svg { width: 22px; height: 22px; fill: none; stroke: #1a1512; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+@page { size: 210mm 297mm; margin: 0; }
 @media print {
-  html, body.cert-page { background: #fff; margin: 0; padding: 0; width: 1122px; height: 793px; overflow: hidden; }
+  html, body.cert-page { background: #eddfcd; margin: 0; padding: 0; width: 793px; }
   .cert-page .skip-link, .cert-ui { display: none !important; }
   .cp-wrap { padding: 0; margin: 0; max-width: none; }
-  .cert-stage { box-shadow: none; overflow: visible !important; height: 793px !important; max-width: none; margin: 0; }
-  .cert-sheet { transform: none !important; }
+  .cert-stage { overflow: visible !important; height: auto !important; max-width: none; margin: 0; }
+  .cert-sheets { transform: none !important; gap: 0; }
+  .cs-page { box-shadow: none; break-after: page; page-break-after: always; }
+  .cs-page:last-child { break-after: auto; page-break-after: auto; }
 }
