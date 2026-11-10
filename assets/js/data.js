@@ -80,6 +80,12 @@ BE.artworks = [
       IMG + "art/flowing-balance-2",
       IMG + "art/flowing-balance-3",
     ],
+    // Certificate of Authenticity: 3 small images (frame detail, texture detail, lifestyle)
+    certImages: [
+      IMG + "art/flowing-balance-cert-frame",
+      IMG + "art/flowing-balance-cert-texture",
+      IMG + "art/flowing-balance-3",
+    ],
     excerpt: "Balance is not stillness. It is the harmony of movement.",
     story:
       "This artwork explores the balance between movement and stillness.\n\nThe flowing black and ivory forms move around one another like natural currents, creating a sense of continuous movement, connection, and harmony. No shape follows a perfectly straight path — just like life.\n\nThe black represents depth, strength, and stillness, while the ivory represents light, clarity, and calm. Together, they create a quiet contrast that feels both modern and timeless.\n\nWhat makes the artwork engaging is the way the shapes seem to move, separate, reconnect, and flow into one another. The longer you look, the more relationships between the forms you begin to notice.\n\n“Balance is not stillness. It is the harmony of movement.”",
@@ -115,6 +121,12 @@ BE.artworks = [
       IMG + "art/interwoven-rhythm-3",
       IMG + "art/interwoven-rhythm-4",
     ],
+    // Certificate of Authenticity: 3 small images (frame detail, texture detail, lifestyle)
+    certImages: [
+      IMG + "art/interwoven-rhythm-cert-frame",
+      IMG + "art/interwoven-rhythm-cert-texture",
+      IMG + "art/interwoven-rhythm-4",
+    ],
     excerpt: "Different paths. One rhythm.",
     story:
       "Interwoven Rhythm explores the beauty of finding balance within complexity.\n\nThe flowing lines represent the different paths, experiences, emotions, and connections that shape our lives. Each line moves in its own direction, yet together they create one continuous rhythm.\n\nThe deep textured surface represents stillness and depth, while the raised lines bring movement, energy, and expression.\n\nWhat may first appear chaotic slowly reveals a sense of harmony — reminding us that life doesn’t always follow a straight path, but every path has a purpose.\n\n“Different paths. One rhythm.”",
@@ -148,6 +160,12 @@ BE.artworks = [
       IMG + "art/fragments-of-stillness-3",
       IMG + "art/fragments-of-stillness-4",
     ],
+    // Certificate of Authenticity: 3 small images (frame detail, texture detail, lifestyle)
+    certImages: [
+      IMG + "art/fragments-of-stillness-cert-frame",
+      IMG + "art/fragments-of-stillness-cert-texture",
+      IMG + "art/fragments-of-stillness-4",
+    ],
     excerpt: "Beauty is not found in perfection, but in the way each piece finds its place.",
     story:
       "This artwork explores the beauty of imperfection, individuality, and quiet moments.\n\nNine sculptural forms sit within a calm, textured surface. Although they share a similar shape, each one bends, folds, and moves differently — suggesting that no two experiences, moments, or people are exactly the same.\n\nThe soft ivory forms represent clarity, calm, and individuality, while the single dark form introduces contrast, depth, and the idea of embracing difference.\n\nThe empty space between each form is just as important as the forms themselves. It creates silence, balance, and breathing room, allowing every individual piece to exist without competing with the others.\n\n“Beauty is not found in perfection, but in the way each piece finds its place.”",
@@ -179,6 +197,12 @@ BE.artworks = [
       IMG + "art/golden-veins-1",
       IMG + "art/golden-veins-2",
       IMG + "art/golden-veins-3",
+      IMG + "art/golden-veins-4",
+    ],
+    // Certificate of Authenticity: 3 small images (frame detail, texture detail, lifestyle)
+    certImages: [
+      IMG + "art/golden-veins-cert-frame",
+      IMG + "art/golden-veins-cert-texture",
       IMG + "art/golden-veins-4",
     ],
     excerpt: "Imperfection reveals extraordinary beauty.",

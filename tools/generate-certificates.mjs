@@ -64,7 +64,8 @@ function certData(a) {
     frame: a.frame, form: a.form,
     artist: SIGNERS.artist, issuedBy: SIGNERS.issuedBy,
     issuedOn: a.issuedOn || d.issuedOn || "",
-    images: a.images.map((s) => (/\.\w+$/.test(s) ? s : s + ".webp")),
+    // main photo first, then 3 small images (artwork.certImages if set, else the next three gallery images)
+    images: [a.images[0], ...(a.certImages || a.images.slice(1, 4))].map((s) => (/\.\w+$/.test(s) ? s : s + ".webp")),
     contact: { website: "www." + BE.config.website, phone: "+" + BE.config.whatsapp.replace(/^(\d{2})(\d{5})(\d{5})$/, "$1 $2$3"), email: BE.config.email },
   };
 }
