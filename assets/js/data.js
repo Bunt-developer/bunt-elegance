@@ -240,44 +240,5 @@ BE.viewRooms = [
   },
 ];
 
-BE.journal = [
-  {
-    id: "choosing-scale",
-    title: "The Art of Scale: Choosing a Statement Piece",
-    tag: "Interiors",
-    image: IMG + "brand/int-dining",
-    read: "4 min read",
-    body: [
-      "A statement work should occupy roughly two-thirds of the furniture beneath it. Above a 240 cm sofa, look for a piece — or a diptych — of around 160 cm. Above a console, allow the art to rise taller than it is wide.",
-      "Hang the centre of the work at eye level, approximately 150 cm from the floor, unless it sits above furniture. Then leave a breathing space of 20–30 cm between the top of the furniture and the bottom of the frame.",
-      "When in doubt, go larger. A generous work calms a room; a small one on a large wall makes the whole space feel unfinished.",
-    ],
-  },
-  {
-    id: "light-and-texture",
-    title: "Light & Texture: How Relief Art Changes Through the Day",
-    tag: "Craft",
-    image: IMG + "brand/craft-macro",
-    read: "3 min read",
-    body: [
-      "Textured art is never the same work twice. Morning light raking from a window reveals every ridge; evening lamps soften the surface into colour and shadow.",
-      "For the most dramatic effect, light a relief work from above at a shallow angle — a picture light or a ceiling spot 50–70 cm out from the wall. Avoid flat, frontal light, which hides the sculpture in the surface.",
-      "Warm light (2700–3000K) flatters umber, ivory and gold. Keep direct sunlight away from any artwork for long periods.",
-    ],
-  },
-  {
-    id: "collecting-editions",
-    title: "Collecting Editions: What “Limited” Really Means",
-    tag: "Collecting",
-    image: IMG + "brand/int-gallery",
-    read: "5 min read",
-    body: [
-      "Every Bunt Elegance limited edition is produced in a fixed number that is never extended. Once an edition closes, the work is retired.",
-      "Each eligible piece is numbered, signed and accompanied by a Certificate of Authenticity that records the title, edition number, dimensions and date. Keep the certificate with the artwork — it is part of the work’s provenance.",
-      "Earlier edition numbers are not more valuable than later ones; what matters is that the edition is genuinely limited and documented.",
-    ],
-  },
-];
-
 BE.findArtwork = (id) => BE.artworks.find((a) => a.id === id);
 BE.findCategory = (id) => BE.categories.find((c) => c.id === id);

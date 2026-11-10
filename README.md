@@ -27,7 +27,7 @@ Static luxury e-commerce site for BUNT ELEGANCE. No build step: plain HTML, CSS 
 Everything catalogue-related lives in **`assets/js/data.js`**:
 - `BE.config` — email, WhatsApp number, social links, optional form endpoints.
 - `BE.artworks` — add / edit artworks (name, collection, category, price in INR, dimensions, `size` in cm for View in Interior, materials, edition, availability, story, images). Set `price: null` for "Price on request". Set `signature: true` on the artwork shown in the homepage showcase.
-- `BE.categories`, `BE.rooms`, `BE.journal`, `BE.viewRooms`.
+- `BE.categories`, `BE.rooms`, `BE.viewRooms`.
 
 Images: each image is referenced without extension and must exist as `name.webp` (large) and `name-sm.webp` (≤720 px). Place new images in `assets/img/art/`.
 

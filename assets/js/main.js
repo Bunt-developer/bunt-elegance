@@ -976,31 +976,6 @@
     }
   }
 
-  function initJournal() {
-    const jg = $("#journal-grid");
-    if (jg)
-      jg.innerHTML = BE.journal
-        .map(
-          (
-            j,
-            i,
-          ) => `<a class="journal-card reveal" style="--d:${i * 0.1}s" href="#${j.id}">
-      <div class="frame">${img(j.image, j.title, { sizes: "(min-width: 800px) 33vw, 100vw" })}</div>
-      <span class="tag">${j.tag} · ${j.read}</span><h3>${esc(j.title)}</h3><p>${esc(j.body[0])}</p></a>`,
-        )
-        .join("");
-    const ja = $("#journal-articles");
-    if (ja)
-      ja.innerHTML = BE.journal
-        .map(
-          (j) => `<article class="article" id="${j.id}">
-      <div class="frame reveal-img">${img(j.image, j.title, { sizes: "(min-width: 900px) 40vw, 100vw" })}</div>
-      <div class="prose reveal"><span class="eyebrow">${j.tag} · ${j.read}</span><h2 style="margin-top:18px">${esc(j.title)}</h2>${j.body.map((p) => `<p>${esc(p)}</p>`).join("")}</div>
-    </article>`,
-        )
-        .join("");
-  }
-
   /* ---------- Collection ---------- */
   function initCollection() {
     const grid = $("#product-grid");
@@ -1407,7 +1382,6 @@
   if (page === "home") initHome();
   if (page === "collection") initCollection();
   if (page === "product") initProduct();
-  if (page === "journal") initJournal();
   if (page === "contact") initContact();
   const medOnly = $("#medium-grid");
   if (medOnly && !medOnly.children.length) mediumCards(medOnly);
