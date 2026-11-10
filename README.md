@@ -21,7 +21,7 @@ Static luxury e-commerce site for BUNT ELEGANCE. No build step: plain HTML, CSS 
 | `contact.html` | Enquiry form, WhatsApp, FAQ (`?subject=commission` / `collector` pre-selects) |
 | `care.html` | Art Care Guide (air pump, microfiber cloth, long soft brush, hard brush) |
 | `certificate.html` | Certificate of Authenticity & verification request |
-| `shipping.html`, `returns.html`, `legal.html`, `404.html` | Client services, privacy/terms, not-found |
+| `shipping.html`, `returns.html`, `privacy.html`, `terms.html`, `404.html` | Client services, privacy policy, terms of sale, not-found |
 
 ## Editing content
 Everything catalogue-related lives in **`assets/js/data.js`**:
@@ -45,4 +45,4 @@ GitHub Pages is static hosting, so there is no server:
 - Artwork images are crops from the brand-guide renders; replace with real product photography when available.
 - Bedroom, office, hotel-suite, gift-box and View-in-Interior room photos are Unsplash images (free licence) — swap for your own project photography.
 - Instagram / Pinterest / Facebook URLs in `data.js` and `index.html` assume the handle `buntelegance`.
-- Have `legal.html` and the returns policy reviewed.
+- Have `privacy.html`, `terms.html` and the returns policy reviewed.

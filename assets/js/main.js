@@ -138,8 +138,8 @@
       ["contact.html", "Contact"],
       ["shipping.html", "Shipping"],
       ["returns.html", "Returns & Refunds"],
-      ["legal.html#privacy", "Privacy"],
-      ["legal.html#terms", "Terms"],
+      ["privacy.html", "Privacy"],
+      ["terms.html", "Terms"],
       ["care.html", "Care Guide"],
       ["certificate.html", "Certificate of Authenticity"],
     ];
