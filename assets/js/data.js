@@ -240,12 +240,6 @@ BE.viewRooms = [
   },
 ];
 
-BE.stories = [
-  { id: "BE-2026-001" },
-  { id: "BE-2026-002" },
-  { id: "BE-2026-003" },
-];
-
 BE.journal = [
   {
     id: "choosing-scale",

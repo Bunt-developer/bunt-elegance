@@ -16,7 +16,7 @@ Static luxury e-commerce site for BUNT ELEGANCE. No build step: plain HTML, CSS 
 | `index.html` | Homepage — all 14 sections |
 | `collection.html` | Full collection with medium chips, filters (space, price, availability, collection), search and sort. Supports `?category=`, `?q=`, `?room=` |
 | `product.html?id=…` | Product detail — gallery with hover zoom & lightbox, View in Interior, specs, story, certificate, care, shipping, returns, add to cart, enquire |
-| `stories.html` | Art Stories + Journal |
+| `journal.html` | Journal |
 | `about.html` | Founders, emblem, brand film |
 | `contact.html` | Enquiry form, WhatsApp, FAQ (`?subject=commission` / `collector` pre-selects) |
 | `care.html` | Art Care Guide (air pump, microfiber cloth, long soft brush, hard brush) |

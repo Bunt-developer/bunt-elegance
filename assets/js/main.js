@@ -34,7 +34,6 @@
   const I = {
     search:
       '<svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>',
-    user: '<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.2-4 4.4-6 8-6s6.8 2 8 6"/></svg>',
     heart:
       '<svg viewBox="0 0 24 24"><path d="M12 20.5s-8-4.9-8-11A4.5 4.5 0 0 1 12 7a4.5 4.5 0 0 1 8 2.5c0 6.1-8 11-8 11z"/></svg>',
     bag: '<svg viewBox="0 0 24 24"><path d="M5 8h14l-1 13H6L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>',
@@ -97,10 +96,8 @@
   const NAV = [
     ["home", "index.html", "Home"],
     ["collection", "collection.html", "Collection"],
-    ["artworks", "collection.html?view=all", "Artworks"],
-    ["stories", "stories.html", "Art Stories"],
     ["about", "about.html", "About"],
-    ["journal", "stories.html#journal", "Journal"],
+    ["journal", "journal.html", "Journal"],
     ["contact", "contact.html", "Contact"],
   ];
   const navLink = ([id, href, label]) =>
@@ -116,16 +113,15 @@
       <div class="container header-inner">
         <div class="header-left">
           <button class="icon-btn menu-toggle" data-open="menu" aria-label="Open menu">${I.menu}</button>
-          <nav class="nav" aria-label="Primary">${NAV.slice(0, 4).map(navLink).join("")}</nav>
+          <nav class="nav" aria-label="Primary">${NAV.slice(0, 2).map(navLink).join("")}</nav>
         </div>
         <a class="brand" href="index.html" aria-label="BUNT ELEGANCE — home">
           <img class="logo-dark" src="assets/img/logo/logo.svg" alt="BUNT ELEGANCE — Art that defines your space" width="160" height="80">
           <img class="logo-light" src="assets/img/logo/logo-light.svg" alt="" aria-hidden="true" width="160" height="80">
         </a>
         <div class="header-right">
-          <nav class="nav" aria-label="Secondary">${NAV.slice(4).map(navLink).join("")}</nav>
+          <nav class="nav" aria-label="Secondary">${NAV.slice(2).map(navLink).join("")}</nav>
           <button class="icon-btn" data-open="search" aria-label="Search">${I.search}</button>
-          <button class="icon-btn hide-mobile" data-open="account" aria-label="Account">${I.user}</button>
           <button class="icon-btn hide-mobile" data-open="wish" aria-label="Wishlist">${I.heart}<span class="count" data-count="wish"></span></button>
           <button class="icon-btn" data-open="cart" aria-label="Shopping cart">${I.bag}<span class="count" data-count="cart"></span></button>
         </div>
@@ -190,7 +186,7 @@
         </div>
         <nav aria-label="Mobile">${NAV.map(navLink).join("")}</nav>
         <div class="mobile-menu__foot caps">
-          <button data-open="wish">Wishlist</button><button data-open="account">Account</button>
+          <button data-open="wish">Wishlist</button>
           <a href="https://wa.me/${C.whatsapp}" target="_blank" rel="noopener">WhatsApp</a><a href="mailto:${C.email}">Email</a>
         </div>
       </div>
@@ -218,21 +214,6 @@
         <div class="drawer__head"><h2 id="wish-title">Wishlist</h2><button class="close-btn" data-close aria-label="Close wishlist">${I.close}</button></div>
         <div class="drawer__body" id="wish-body"></div>
       </aside>
-
-      <div class="modal" id="account" role="dialog" aria-modal="true" aria-labelledby="acc-title">
-        <div class="modal__backdrop" data-close></div>
-        <div class="modal__box">
-          <button class="close-btn modal__close" data-close aria-label="Close">${I.close}</button>
-          <span class="eyebrow">Collector Account</span>
-          <h2 id="acc-title" class="h3" style="margin:18px 0 14px">Private accounts are opening soon.</h2>
-          <p class="muted">Leave your email and we will send a personal invitation — with your order history, certificates and Collector Privilege benefits in one place.</p>
-          <form class="form-grid" data-form="account" style="margin-top:28px">
-            <div class="field"><label for="acc-email">Email</label><input id="acc-email" name="email" type="email" required autocomplete="email"></div>
-            <button class="btn" type="submit">Request invitation</button>
-            <p class="form-status" role="status"></p>
-          </form>
-        </div>
-      </div>
 
       <div class="modal" id="enquire" role="dialog" aria-modal="true" aria-labelledby="enq-title">
         <div class="modal__backdrop" data-close></div>
@@ -513,7 +494,6 @@
   /* ---------- Forms ---------- */
   const FORM_SUBJECT = {
     newsletter: "Newsletter subscription",
-    account: "Collector account invitation",
     enquiry: "Artwork enquiry",
     contact: "Website enquiry",
     verify: "Certificate verification request",
@@ -527,7 +507,7 @@
       data = Object.fromEntries(new FormData(f));
     const status = $(".form-status", f) || $(".form-note", f.parentElement);
     const endpoint =
-      kind === "newsletter" || kind === "account"
+      kind === "newsletter"
         ? C.newsletterEndpoint || C.formEndpoint
         : C.formEndpoint;
     const subject = `${FORM_SUBJECT[kind] || "Website form"}${data.subject ? " — " + data.subject : ""}`;
@@ -994,38 +974,9 @@
         b.href = `product.html?id=${sig.id}`;
       });
     }
-    const st = $("#stories-list");
-    if (st)
-      st.innerHTML = BE.stories
-        .slice(0, 3)
-        .map((s, i) => storyBlock(BE.findArtwork(s.id), i))
-        .join("");
   }
 
-  function storyBlock(a, i) {
-    return `<article class="story" id="story-${a.id}">
-      <a class="frame story__media reveal-img" href="product.html?id=${a.id}">${img(a.images[2] || a.images[0], `${a.name} installed in an interior`, { sizes: "(min-width: 900px) 55vw, 100vw" })}</a>
-      <div class="reveal">
-        <span class="story__num">Story ${String(i + 1).padStart(2, "0")} — ${esc(a.collection)}</span>
-        <h3 class="story__title">${esc(a.name)}</h3>
-        <p class="story__text">${esc(a.story)}</p>
-        <a class="link story__more" href="stories.html#story-${a.id}">Read the story ${I.arrow}</a>
-      </div>
-    </article>`;
-  }
-
-  function initStories() {
-    const st = $("#stories-list");
-    if (st)
-      st.innerHTML = BE.stories
-        .map((s, i) => {
-          const a = BE.findArtwork(s.id);
-          return storyBlock(a, i).replace(
-            `href="stories.html#story-${a.id}">Read the story`,
-            `href="product.html?id=${a.id}">View the artwork`,
-          );
-        })
-        .join("");
+  function initJournal() {
     const jg = $("#journal-grid");
     if (jg)
       jg.innerHTML = BE.journal
@@ -1456,7 +1407,7 @@
   if (page === "home") initHome();
   if (page === "collection") initCollection();
   if (page === "product") initProduct();
-  if (page === "stories") initStories();
+  if (page === "journal") initJournal();
   if (page === "contact") initContact();
   const medOnly = $("#medium-grid");
   if (medOnly && !medOnly.children.length) mediumCards(medOnly);
