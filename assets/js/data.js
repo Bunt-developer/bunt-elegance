@@ -209,6 +209,45 @@ BE.artworks = [
     story:
       "Golden Veins explores the beauty of imperfection through organic cracks and flowing gold.\n\nThe warm ivory surface represents calm and simplicity, while the gold symbolises strength, value, and transformation.\n\nTogether, they reveal how imperfections can become the most beautiful part of a whole.\n\n“Imperfection reveals extraordinary beauty.”",
   },
+  {
+    id: "BE-2026-005",
+    name: "Harmony in Contrast",
+    archiveId: "BE-2026-005",
+    year: 2026,
+    issuedOn: "18/11/2026",
+    collection: "Original",
+    category: "texture",
+    price: 63700,
+    format: "Original",
+    dimensions: "82 × 42 inches",
+    size: { w: 208, h: 107 },
+    form: "Three sculpted panels in black and ivory texture",
+    medium: "MDF",
+    frame: "Without Frame",
+    materials: "Three sculpted black and ivory textured panels, on MDF. Without frame.",
+    edition: "Original",
+    editionNote: "",
+    availability: "Available — ships in 2–3 weeks",
+    status: "available",
+    rooms: ["living", "office", "entry"],
+    palette: "Ivory & black",
+    featured: true,
+    images: [
+      IMG + "art/harmony-in-contrast-1",
+      IMG + "art/harmony-in-contrast-2",
+      IMG + "art/harmony-in-contrast-3",
+      IMG + "art/harmony-in-contrast-4",
+    ],
+    // Certificate of Authenticity: 3 small images (edge detail, texture detail, lifestyle)
+    certImages: [
+      IMG + "art/harmony-in-contrast-cert-frame",
+      IMG + "art/harmony-in-contrast-cert-texture",
+      IMG + "art/harmony-in-contrast-cert-lifestyle",
+    ],
+    excerpt: "Elegance exists in the balance of opposites.",
+    story:
+      "This artwork explores the relationship between contrast, connection, and balance through three sculptural forms united by a continuous abstract composition.\n\nThe flowing black patterns represent depth, strength, and individuality, while the ivory spaces symbolize clarity, peace, and openness.\n\nEach sculptural form carries a distinct shape, yet the patterns move seamlessly across them, reflecting how different elements can come together to create a unified expression.\n\nTogether, the bold contrasts, organic curves, and surrounding negative space create a timeless harmony between movement and stillness, strength and serenity.\n\n“Elegance exists in the balance of opposites.”",
+  },
 ];
 
 /* Rooms used by the "View in Interior" feature.
