@@ -257,7 +257,7 @@ BE.artworks = [
     certType: "Coal Art, Texture Art",
     collection: "Original",
     category: "coal",
-    categories: ["coal", "texture"],
+    categories: ["coal", "texture", "mixed_media"],
     price: 56800,
     format: "Original",
     dimensions: "36 × 24 inches",
