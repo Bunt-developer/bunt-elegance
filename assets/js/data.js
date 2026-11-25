@@ -248,6 +248,47 @@ BE.artworks = [
     story:
       "This artwork explores the relationship between contrast, connection, and balance through three sculptural forms united by a continuous abstract composition.\n\nThe flowing black patterns represent depth, strength, and individuality, while the ivory spaces symbolize clarity, peace, and openness.\n\nEach sculptural form carries a distinct shape, yet the patterns move seamlessly across them, reflecting how different elements can come together to create a unified expression.\n\nTogether, the bold contrasts, organic curves, and surrounding negative space create a timeless harmony between movement and stillness, strength and serenity.\n\n“Elegance exists in the balance of opposites.”",
   },
+  {
+    id: "BE-2026-006",
+    name: "The Silver Element",
+    archiveId: "BE-2026-006",
+    year: 2026,
+    issuedOn: "25/11/2026",
+    certType: "Coal Art, Texture Art",
+    collection: "Original",
+    category: "coal",
+    categories: ["coal", "texture"],
+    price: 56800,
+    format: "Original",
+    dimensions: "36 × 24 inches",
+    size: { w: 61, h: 91 },
+    form: "Sculptural coal fragments with silver detailing on a dark textured surface",
+    medium: "MDF",
+    frame: "Without Frame",
+    materials: "Sculptural coal fragments with silver detailing on a dark textured surface, on MDF. Without frame.",
+    edition: "Original",
+    editionNote: "",
+    availability: "Available — ships in 2–3 weeks",
+    status: "available",
+    rooms: ["living", "bedroom", "office", "entry"],
+    palette: "Black & silver",
+    featured: true,
+    images: [
+      IMG + "art/the-silver-element-1",
+      IMG + "art/the-silver-element-2",
+      IMG + "art/the-silver-element-3",
+      IMG + "art/the-silver-element-4",
+    ],
+    // Certificate of Authenticity: 3 small images (edge detail, texture detail, lifestyle)
+    certImages: [
+      IMG + "art/the-silver-element-cert-frame",
+      IMG + "art/the-silver-element-cert-texture",
+      IMG + "art/the-silver-element-cert-lifestyle",
+    ],
+    excerpt: "True elegance lies in the beauty of contrasts.",
+    story:
+      "This artwork explores the relationship between nature, strength, and transformation through an abstract arrangement of sculptural coal fragments. The deep black coal represents resilience, raw beauty, and individuality, reflecting the strength found in nature’s simplest elements.\n\nThe silver detailing introduces a sense of light, refinement, and sophistication against the dark surface. Each fragment carries a distinctive shape and texture, celebrating the beauty of imperfection and the uniqueness of every form.\n\nTogether, the raw coal and subtle silver accents create a striking balance between nature and elegance, transforming an ordinary material into a timeless artistic expression.\n\n“True elegance lies in the beauty of contrasts.”",
+  },
 ];
 
 /* Rooms used by the "View in Interior" feature.
